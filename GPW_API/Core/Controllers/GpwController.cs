@@ -24,7 +24,7 @@ namespace GPW_API.Controllers
 
         MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
         {
-            mc.AddProfile(new AutoMApping());
+            mc.AddProfile(new AutoMapping());
         });
 
         public GpwController(IMapper mapper)
