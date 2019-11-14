@@ -34,13 +34,15 @@ namespace GPW_API
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
 
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new MappingProfile());
+            //});
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddAutoMapper(typeof(Startup));
+
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
 
 
         }

@@ -32,9 +32,21 @@ namespace GPW_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<GpwCompany>> Get()
+        public ActionResult<List<GpwCompany>> GetGpw()
         {
-            return Ok(_context.gpwCompanies.ToList());
+            return Ok(_context.gpwCompanies.ToList().OrderBy(c => c.Abrreviation));
         }
+        [HttpGet("{abrreviation}")]
+        public ActionResult<GpwCompany> GetGpw(string abrreviation)
+        {
+            var company = _context.gpwCompanies.SingleOrDefault(c => c.Abrreviation.ToLower() == abrreviation.ToLower());
+
+            if (company == null)
+                return NotFound();
+
+            return Ok(company);
+        }
+
+
     }
 }
