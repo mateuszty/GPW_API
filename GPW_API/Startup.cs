@@ -39,12 +39,10 @@ namespace GPW_API
             //    mc.AddProfile(new MappingProfile());
             //});
 
-            services.AddAutoMapper(typeof(Startup));
-
             //IMapper mapper = mappingConfig.CreateMapper();
             //services.AddSingleton(mapper);
 
-
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

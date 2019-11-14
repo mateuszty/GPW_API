@@ -19,22 +19,25 @@ namespace GPW_API.Controllers
     {
 
         private GpwContext _context;
+        private readonly IMapper _mapper;
 
 
         MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
         {
-            mc.AddProfile(new MappingProfile());
+            mc.AddProfile(new AutoMApping());
         });
 
-        public GpwController()
+        public GpwController(IMapper mapper)
         {
             _context = new GpwContext();
+            _mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<List<GpwCompany>> GetGpw()
         {
-            return Ok(_context.gpwCompanies.ToList().OrderBy(c => c.Abrreviation));
+            var companies = _context.gpwCompanies.ToList().OrderBy(c => c.Abrreviation);
+            return Ok(_mapper.Map<List<GpwCompanyDto>>(companies));
         }
         [HttpGet("{abrreviation}")]
         public ActionResult<GpwCompany> GetGpw(string abrreviation)
@@ -44,7 +47,7 @@ namespace GPW_API.Controllers
             if (company == null)
                 return NotFound();
 
-            return Ok(company);
+            return Ok(_mapper.Map<GpwCompanyDto>(company));
         }
 
 

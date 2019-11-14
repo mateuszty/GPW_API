@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace GPW_API.App_Start
 {
-    public class MappingProfile : Profile
+    public class AutoMApping : Profile
     {
-        public MappingProfile()
+        public AutoMApping()
         {
             CreateMap<GpwCompany,GpwCompanyDto>();
         }
