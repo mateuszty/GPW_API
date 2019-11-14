@@ -39,6 +39,6 @@ namespace GPW_API.Core.Dtos
         public float MinPrice { get; set; }
 
         [Required]
-        public DateTime RefreshTime { get; set; }
+        public string RefreshTime { get; set; }
     }
 }
