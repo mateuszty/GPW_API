@@ -30,17 +30,12 @@ namespace GPW_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<GpwContext>(opt => 
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<GpwContext>(opt =>
+                opt.UseSqlServer(connection));
             services.AddControllers();
-
-            //var mappingConfig = new MapperConfiguration(mc =>
-            //{
-            //    mc.AddProfile(new MappingProfile());
-            //});
-
-            //IMapper mapper = mappingConfig.CreateMapper();
-            //services.AddSingleton(mapper);
 
             services.AddAutoMapper(typeof(Startup));
         }
