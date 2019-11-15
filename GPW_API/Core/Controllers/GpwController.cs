@@ -27,9 +27,9 @@ namespace GPW_API.Controllers
             mc.AddProfile(new AutoMapping());
         });
 
-        public GpwController(IMapper mapper)
+        public GpwController(IMapper mapper, GpwContext context)
         {
-            _context = new GpwContext();
+            _context = context;
             _mapper = mapper;
         }
 

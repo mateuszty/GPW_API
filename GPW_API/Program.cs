@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GPW_API.Core;
-using GPW_API.Core.BackgrServices;
+using GPW_API.Core.BackgroundServices;
 using GPW_API.DataAccess;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,10 +29,6 @@ namespace GPW_API
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    //webBuilder.ConfigureKestrel(serverOptions =>
-                    //{
-                    //    serverOptions.Listen(System.Net.IPAddress.Parse("127.0.0.1"), 5001);
-                    //})
                     webBuilder.UseStartup<Startup>();
                 });
     }

@@ -14,9 +14,9 @@ namespace GPW_API.DataAccess
     {
         private GpwContext _context { get; }
 
-        public GpwRefresh()
+        public GpwRefresh(GpwContext context)
         {
-            _context = new GpwContext();
+            _context = context;
         }
 
         public void GpwRefreshing()

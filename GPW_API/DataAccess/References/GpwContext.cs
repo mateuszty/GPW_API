@@ -23,11 +23,10 @@ namespace GPW_API.DataAccess.References
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var webConfig = new WebConfig();
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(webConfig.GetDefaultConnection1());
-            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
         }
 
         public DbSet<GpwCompany> gpwCompanies { get; set; }
