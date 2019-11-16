@@ -1,16 +1,12 @@
-﻿using GPW_API.Core.ExternalResources;
-using GPW_API.Core.Models;
+﻿using GPW_API.Core.Models;
 using GPW_API.DataAccess.References;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace GPW_API.DataAccess
 {
-    public class GpwRefresh : IGpwRefreshcs
+    public class GpwRefresh
     {
         private GpwContext _context { get; }
 

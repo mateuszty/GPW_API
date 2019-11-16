@@ -5,14 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\Repositories\**" />
     <Compile Remove="DataAccess\HtmlParsing\**" />
+    <Content Remove="Core\Repositories\**" />
     <Content Remove="DataAccess\HtmlParsing\**" />
+    <EmbeddedResource Remove="Core\Repositories\**" />
     <EmbeddedResource Remove="DataAccess\HtmlParsing\**" />
+    <None Remove="Core\Repositories\**" />
     <None Remove="DataAccess\HtmlParsing\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
