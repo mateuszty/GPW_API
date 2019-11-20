@@ -1,5 +1,7 @@
 using AutoMapper;
+using GPW_API.Core.Repositories;
 using GPW_API.DataAccess.References;
+using GPW_API.DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -24,9 +26,12 @@ namespace GPW_API
         {
 
 
-            var connection = Configuration.GetConnectionString("DefaultConnection");
+            var connection = Configuration.GetConnectionString("LocalConnection");
             services.AddDbContext<GpwContext>(opt =>
                 opt.UseSqlServer(connection));
+
+            services.AddScoped<IGpwRepository, GpwRepository>();
+
             services.AddControllers();
 
             services.AddAutoMapper(typeof(Startup));

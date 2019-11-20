@@ -1,5 +1,5 @@
-﻿using GPW_API.DataAccess;
-using GPW_API.DataAccess.References;
+﻿using GPW_API.Core.Repositories;
+using GPW_API.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -21,9 +21,9 @@ namespace GPW_API.Core.BackgroundServices
             {
                 using (var scope = _scopeFactory.CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetRequiredService<GpwContext>();
+                    var repository = scope.ServiceProvider.GetRequiredService<IGpwRepository>();
 
-                    var gpwRefresh = new GpwRefresh(context);
+                    var gpwRefresh = new GpwRefresh(repository);
                     gpwRefresh.GpwRefreshing();
                 }
 

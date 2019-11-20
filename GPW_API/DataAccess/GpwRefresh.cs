@@ -1,4 +1,5 @@
 ﻿using GPW_API.Core.Models;
+using GPW_API.Core.Repositories;
 using GPW_API.DataAccess.References;
 using System;
 using System.Collections.Generic;
@@ -8,55 +9,21 @@ namespace GPW_API.DataAccess
 {
     public class GpwRefresh
     {
-        private GpwContext _context { get; }
+        private IGpwRepository _repository { get; }
 
-        public GpwRefresh(GpwContext context)
+        public GpwRefresh(IGpwRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public void GpwRefreshing()
         {
-            var companiesInDb = _context.gpwCompanies.ToList();
 
             var companiesInStock = GetGpwCompanies();
 
-            foreach (var companyInDb in companiesInDb)
-            {
-                companyInDb.IsDeleated = true;
-            }
+            _repository.GpwRefresh(companiesInStock);
 
-            foreach (var companyInStock in companiesInStock)
-            {
-                var companyInDb = companiesInDb.SingleOrDefault(c => c.Abrreviation == companyInStock.Abrreviation);
-
-                if (companyInDb == null)
-                {
-                    companyInStock.IsDeleated = false;
-                    _context.gpwCompanies.Add(companyInStock);
-                }
-                else
-                {
-                    companyInDb.IsDeleated = false;
-                    companyInDb.Price = companyInStock.Price;
-                    companyInDb.PriceChange = companyInStock.PriceChange;
-                    companyInDb.PriceChangePercent = companyInStock.PriceChangePercent;
-                    companyInDb.TransactionNumber = companyInStock.TransactionNumber;
-                    companyInDb.Turnover = companyInStock.Turnover;
-                    companyInDb.MaxPrice = companyInStock.MaxPrice;
-                    companyInDb.MinPrice = companyInStock.MinPrice;
-                    companyInDb.OpeningPrice = companyInStock.OpeningPrice;
-                    companyInDb.RefreshTime = companyInStock.RefreshTime;
-                }
-
-            }
-
-            _context.SaveChanges();
         }
-
-
-
-
 
 
     public List<GpwCompany> GetGpwCompanies()
