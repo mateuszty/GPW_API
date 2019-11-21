@@ -12,7 +12,7 @@ namespace GPW_API.Core.Controllers
     public class GpwController : ControllerBase
     {
 
-        private IGpwRepository _repository;
+        private readonly IGpwRepository _repository;
         private readonly IMapper _mapper;
 
 

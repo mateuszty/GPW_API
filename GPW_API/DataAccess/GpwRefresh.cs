@@ -9,7 +9,7 @@ namespace GPW_API.DataAccess
 {
     public class GpwRefresh
     {
-        private IGpwRepository _repository { get; }
+        private readonly IGpwRepository _repository;
 
         public GpwRefresh(IGpwRepository repository)
         {
