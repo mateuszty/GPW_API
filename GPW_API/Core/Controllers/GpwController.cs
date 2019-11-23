@@ -2,6 +2,7 @@
 using AutoMapper;
 using GPW_API.App_Start;
 using GPW_API.Core.Dtos;
+using GPW_API.Core.Models;
 using GPW_API.Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace GPW_API.Core.Controllers
     public class GpwController : ControllerBase
     {
 
-        private readonly IGpwRepository _repository;
+        private IGpwRepository _repository;
         private readonly IMapper _mapper;
 
 
@@ -28,9 +29,10 @@ namespace GPW_API.Core.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<GpwCompanyDto>> GetGpw()
+        public ActionResult<List<GpwCompany>> GetGpw()
         {
             var companies = _repository.GetAllCompanies();
+            //return Ok(companies);
             return Ok(_mapper.Map<List<GpwCompanyDto>>(companies));
         }
         [HttpGet("{abrreviation}")]
