@@ -4,6 +4,7 @@ using GPW_API.DataAccess.References;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GPW_API.DataAccess
 {
@@ -16,26 +17,21 @@ namespace GPW_API.DataAccess
             _repository = repository;
         }
 
-        public void GpwRefreshing()
+        public async Task GpwRefreshing()
         {
 
-            var companiesInStock = GetGpwCompanies();
+            var companiesInStock = await GetGpwCompanies();
 
-            _repository.GpwRefresh(companiesInStock);
+            await _repository.GpwRefresh(companiesInStock);
 
         }
 
 
-    public List<GpwCompany> GetGpwCompanies()
+    public Task<List<GpwCompany>> GetGpwCompanies()
         {
             var htmlParsing = new HtmlParsing();
             var result = htmlParsing.GetGpwCompanies();
             return result;
-        }
-
-        public void OnDataRefreshing(object source, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

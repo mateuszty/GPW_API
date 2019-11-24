@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using GPW_API.App_Start;
 using GPW_API.Core.Dtos;
@@ -29,16 +30,16 @@ namespace GPW_API.Core.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<GpwCompany>> GetGpw()
+        public async Task<ActionResult<List<GpwCompany>>> GetGpw()
         {
-            var companies = _repository.GetAllCompanies();
+            var companies = await _repository.GetAllCompanies();
             //return Ok(companies);
             return Ok(_mapper.Map<List<GpwCompanyDto>>(companies));
         }
         [HttpGet("{abrreviation}")]
-        public ActionResult<GpwCompanyDto> GetGpw(string abrreviation)
+        public async Task<ActionResult<GpwCompanyDto>> GetGpw(string abrreviation)
         {
-            var company = _repository.GetCompany(abrreviation);
+            var company = await _repository.GetCompany(abrreviation);
 
             if (company == null)
                 return NotFound();

@@ -24,7 +24,7 @@ namespace GPW_API.Core.BackgroundServices
                     var repository = scope.ServiceProvider.GetRequiredService<IGpwRepository>();
 
                     var gpwRefresh = new GpwRefresh(repository);
-                    gpwRefresh.GpwRefreshing();
+                    await gpwRefresh.GpwRefreshing();
                 }
 
 

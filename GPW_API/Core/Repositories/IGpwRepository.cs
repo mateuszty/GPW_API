@@ -8,10 +8,10 @@ namespace GPW_API.Core.Repositories
 {
     public interface IGpwRepository
     {
-        public List<GpwCompany> GetAllCompanies();
+        public Task<List<GpwCompany>> GetAllCompanies();
 
-        public GpwCompany GetCompany(string abrreviation);
+        public Task<GpwCompany> GetCompany(string abrreviation);
 
-        public void GpwRefresh(List<GpwCompany> companiesInStock);
+        public Task GpwRefresh(List<GpwCompany> companiesInStock);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using GPW_API.Core.Models;
 using GPW_API.Core.Repositories;
 using GPW_API.DataAccess.References;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GPW_API.DataAccess.Repositories
 {
@@ -16,19 +18,19 @@ namespace GPW_API.DataAccess.Repositories
             _context = context;
         }
 
-        public List<GpwCompany> GetAllCompanies()
+        public async Task<List<GpwCompany>> GetAllCompanies()
         {
-            return _context.gpwCompanies.ToList().OrderBy(c => c.Abrreviation).ToList();
+            return await _context.gpwCompanies.OrderBy(c => c.Abrreviation).ToListAsync();
         }
 
-        public GpwCompany GetCompany(string abrreviation)
+        public async Task<GpwCompany> GetCompany(string abrreviation)
         {
-            return _context.gpwCompanies.SingleOrDefault(c => c.Abrreviation.ToLower() == abrreviation.ToLower());
+            return await _context.gpwCompanies.SingleOrDefaultAsync(c => c.Abrreviation.ToLower() == abrreviation.ToLower());
         }
 
-        public void GpwRefresh(List<GpwCompany> companiesInStock)
+        public async Task GpwRefresh(List<GpwCompany> companiesInStock)
         {
-            var companiesInDb = _context.gpwCompanies.ToList();
+            var companiesInDb = await _context.gpwCompanies.ToListAsync();
 
             foreach (var companyInDb in companiesInDb)
             {
@@ -60,7 +62,7 @@ namespace GPW_API.DataAccess.Repositories
 
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
