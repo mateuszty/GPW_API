@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GPW_API.UnitTest.Core.Controllers
 {
@@ -43,17 +44,17 @@ namespace GPW_API.UnitTest.Core.Controllers
                             OpeningPrice = 1, Price = 1, PriceChange = 1, PriceChangePercent = 1, RefreshTime = DateTime.Now,
                             TransactionNumber = 1, Turnover = 1}};
 
-            mockRepo.Setup(r => r.GetAllCompanies()).Returns(_gpwCompanyList);
-            mockRepo.Setup(r => r.GetCompany("a")).Returns(_gpwCompanyList.Find(c => c.Abrreviation == "a"));
+            mockRepo.Setup(r => r.GetAllCompanies()).ReturnsAsync(_gpwCompanyList);
+            mockRepo.Setup(r => r.GetCompany("a")).ReturnsAsync(_gpwCompanyList.Find(c => c.Abrreviation == "a"));
             mockRepo.Setup(r => r.GetCompany("bad abrreviation")).Returns(value: null);
 
             _gpwController = new GpwController(_mapper, mockRepo.Object);
         }
 
         [Test]
-        public void GetGpw_NoArguments_ReturnCompanyList()
+        public async Task GetGpw_NoArguments_ReturnCompanyListAsync()
         {
-            var result = _gpwController.GetGpw();
+            var result = await _gpwController.GetGpw();
 
             var statusCode = (result.Result as ObjectResult).StatusCode;
             var resultValue = (result.Result as ObjectResult).Value;
@@ -64,9 +65,9 @@ namespace GPW_API.UnitTest.Core.Controllers
 ;       }
 
         [Test]
-        public void GetGpw_ValidCompanyAbrreviation_ReturnCompany()
+        public async Task GetGpw_ValidCompanyAbrreviation_ReturnCompany()
         {
-            var result = _gpwController.GetGpw("a");
+            var result = await _gpwController.GetGpw("a");
 
             var statusCode = (result.Result as ObjectResult).StatusCode;
             var resultValue = (result.Result as ObjectResult).Value;
@@ -77,9 +78,9 @@ namespace GPW_API.UnitTest.Core.Controllers
         }
 
         [Test]
-        public void GetGpw_NotValidCompanyAbrreviation_ReturnNotFound()
+        public async Task GetGpw_NotValidCompanyAbrreviation_ReturnNotFound()
         {
-            var result = _gpwController.GetGpw("wrong abrreviation");
+            var result = await _gpwController.GetGpw("wrong abrreviation");
             var statusCode = (result.Result as NotFoundResult).StatusCode;
             Assert.IsNotNull(result);
             Assert.AreEqual(statusCode, 404);
