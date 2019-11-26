@@ -29,8 +29,7 @@ namespace GPW_API.DataAccess
 
     public Task<List<GpwCompany>> GetGpwCompanies()
         {
-            var htmlParsing = new HtmlParsing();
-            var result = htmlParsing.GetGpwCompanies();
+            var result = HtmlParsing.GetGpwCompanies();
             return result;
         }
     }

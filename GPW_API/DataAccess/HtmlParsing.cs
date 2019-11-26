@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GPW_API.DataAccess
 {
-    public class HtmlParsing
+    public static class HtmlParsing
     {
 
-        public async Task<List<GpwCompany>> GetGpwCompanies()
+        public static async Task<List<GpwCompany>> GetGpwCompanies()
         {
 
             string htmlCode;
@@ -50,14 +50,14 @@ namespace GPW_API.DataAccess
         }
 
 
-        private string GetMiddleText(string takeFrom, string takeTo, string htmlCode)
+        private static string GetMiddleText(string takeFrom, string takeTo, string htmlCode)
         {
             var htmlCodeTakenFrom = htmlCode.Split(takeFrom)[1];
             var htmlCodeTakenTo = htmlCodeTakenFrom.Split(takeTo)[0];
             return htmlCodeTakenTo;
         }
 
-        private string GetMiddleText(string takeFrom, string takeFrom2, string takeFrom3, string takeTo, string htmlCode)
+        private static string GetMiddleText(string takeFrom, string takeFrom2, string takeFrom3, string takeTo, string htmlCode)
         {
             var htmlCodeTakenFromTable = htmlCode.Split(takeFrom);
             if (htmlCodeTakenFromTable.Length < 2)
@@ -70,27 +70,27 @@ namespace GPW_API.DataAccess
             return htmlCodeTakenTo;
         }
 
-        private string GetStockTable(string htmlCode)
+        private static string GetStockTable(string htmlCode)
         {
             return GetMiddleText("<tbody", "</tbody", htmlCode);
         }
 
-        private IEnumerable<string> GetCompanyTextList(string separator, string stockTable)
+        private static IEnumerable<string> GetCompanyTextList(string separator, string stockTable)
         {
             return stockTable.Split(separator).Skip<string>(1);
         }
 
-        private string GetCompanyName(string companyText)
+        private static string GetCompanyName(string companyText)
         {
             return GetMiddleText("title=\"", "\" href", companyText);
         }
 
-        private string GetCompanyAbbreviation(string companyText)
+        private static string GetCompanyAbbreviation(string companyText)
         {
             return GetMiddleText("symbol=", "\">", companyText);
         }
 
-        private float GetCompanyPrice(string companyText)
+        private static float GetCompanyPrice(string companyText)
         {
             var course = GetMiddleText("colKurs change  down\">", "colKurs change \">", "colKurs change  up\">", "</td>", companyText).Replace("&nbsp;", "");
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -98,7 +98,7 @@ namespace GPW_API.DataAccess
             return float.Parse(course, style, provider);
         }
 
-        private float GetCompanyOpeningPrice(string companyText)
+        private static float GetCompanyOpeningPrice(string companyText)
         {
             var course = GetMiddleText("colOtwarcie\">", "</td>", companyText).Replace("&nbsp;", "");
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -106,7 +106,7 @@ namespace GPW_API.DataAccess
             return float.Parse(course, style, provider);
         }
 
-        private float GetCompanyMaxPrice(string companyText)
+        private static float GetCompanyMaxPrice(string companyText)
         {
             var course = GetMiddleText("calMaxi\">", "</td>", companyText).Replace("&nbsp;", "");
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -114,7 +114,7 @@ namespace GPW_API.DataAccess
             return float.Parse(course, style, provider);
         }
 
-        private float GetCompanyMinPrice(string companyText)
+        private static float GetCompanyMinPrice(string companyText)
         {
             var course = GetMiddleText("calMini\">", "</td>", companyText).Replace("&nbsp;", "");
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -122,7 +122,7 @@ namespace GPW_API.DataAccess
             return float.Parse(course, style, provider);
         }
 
-        private float GetCompnayPriceChange(string companyText)
+        private static float GetCompnayPriceChange(string companyText)
         {
             var courseChange = GetMiddleText("colZmiana change  down\">", "colZmiana change \">", "colZmiana change  up\">", "</td>", companyText).Replace("&nbsp;", "");
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -130,7 +130,7 @@ namespace GPW_API.DataAccess
             return float.Parse(courseChange, style, provider);
         }
 
-        private float GetCompnayPriceChangePercent(string companyText)
+        private static float GetCompnayPriceChangePercent(string companyText)
         {
             var percent = GetMiddleText("colZmianaProcentowa change  down\">", "colZmianaProcentowa change \">", "colZmianaProcentowa change  up\">", "</td>", companyText).Trim('%');
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
@@ -138,13 +138,13 @@ namespace GPW_API.DataAccess
             return float.Parse(percent, style, provider);
         }
 
-        private int GetCompnayTransactionNumber(string companyText)
+        private static int GetCompnayTransactionNumber(string companyText)
         {
             var transactionNumber = GetMiddleText("colLiczbaTransakcji\">", "</td>", companyText).Replace("&nbsp;", "");
             return int.Parse(transactionNumber);
         }
 
-        private float GetCompnayTurnover(string companyText)
+        private static float GetCompnayTurnover(string companyText)
         {
             var turnover = GetMiddleText("colObrot\">", "</td>", companyText).Replace("&nbsp;", "");
             var style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
