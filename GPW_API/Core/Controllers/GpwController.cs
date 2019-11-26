@@ -33,7 +33,6 @@ namespace GPW_API.Core.Controllers
         public async Task<ActionResult<List<GpwCompany>>> GetGpw()
         {
             var companies = await _repository.GetAllCompanies();
-            //return Ok(companies);
             return Ok(_mapper.Map<List<GpwCompanyDto>>(companies));
         }
         [HttpGet("{abrreviation}")]

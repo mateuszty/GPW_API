@@ -1,7 +1,6 @@
 using AutoMapper;
 using GPW_API.App_Start;
 using GPW_API.Core.Controllers;
-using GPW_API.Core.Dtos;
 using GPW_API.Core.Models;
 using GPW_API.Core.Repositories;
 using Microsoft.AspNetCore.Mvc;

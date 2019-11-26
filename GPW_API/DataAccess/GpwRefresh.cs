@@ -1,9 +1,6 @@
 ﻿using GPW_API.Core.Models;
 using GPW_API.Core.Repositories;
-using GPW_API.DataAccess.References;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GPW_API.DataAccess
