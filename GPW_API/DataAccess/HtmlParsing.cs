@@ -13,15 +13,9 @@ namespace GPW_API.DataAccess
 
         public static async Task<List<GpwCompany>> GetGpwCompanies()
         {
+            
 
-            string htmlCode;
-
-            using (WebClient client = new WebClient())
-            {
-                htmlCode = await client.DownloadStringTaskAsync ("https://www.bankier.pl/gielda/notowania/akcje");
-            }
-
-            var stockTableHtml = GetStockTable(htmlCode);
+            var stockTableHtml = GetStockTable(await HtmlDownloader.Download("https://www.bankier.pl/gielda/notowania/akcje"));
 
             var companyHtmlList = GetCompanyTextList("<tr>", stockTableHtml);
 
