@@ -29,7 +29,7 @@ namespace GPW_API
             services.AddDbContext<GpwContext>(opt =>
                 opt.UseSqlServer(connection));
 
-            services.AddLogging()
+            services.AddLogging();
 
             services.AddScoped<IGpwRepository, GpwRepository>();
 
