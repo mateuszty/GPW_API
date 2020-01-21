@@ -11,11 +11,11 @@ namespace GPW_API.DataAccess
     public static class HtmlParsing
     {
 
-        public static async Task<List<GpwCompany>> GetGpwCompanies()
+        public static List<GpwCompany> GetGpwCompanies(string htmlCode)
         {
             
 
-            var stockTableHtml = GetStockTable(await HtmlDownloader.Download("https://www.bankier.pl/gielda/notowania/akcje"));
+            var stockTableHtml = GetStockTable(htmlCode);
 
             var companyHtmlList = GetCompanyTextList("<tr>", stockTableHtml);
 

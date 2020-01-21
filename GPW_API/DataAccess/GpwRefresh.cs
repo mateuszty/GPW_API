@@ -24,9 +24,10 @@ namespace GPW_API.DataAccess
         }
 
 
-    public Task<List<GpwCompany>> GetGpwCompanies()
+    public async Task<List<GpwCompany>> GetGpwCompanies()
         {
-            var result = HtmlParsing.GetGpwCompanies();
+            var htmlCode = await HtmlDownloader.Download("https://www.bankier.pl/gielda/notowania/akcje");
+            var result = HtmlParsing.GetGpwCompanies(htmlCode);
             return result;
         }
     }
